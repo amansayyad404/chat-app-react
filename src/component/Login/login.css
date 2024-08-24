@@ -1,0 +1,82 @@
+.login{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 100px;
+
+    .item{
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        margin: 40px;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.061);
+        box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+        100%, 0.075),
+        /* shadow ring 👇 */
+        0 0 0 1px hsla(0, 0%, 0%, 0.05),
+        /* multiple soft shadows 👇 */
+        0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+        0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+        0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+
+        form{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+
+            input{
+                padding: 20px;
+                border: none;
+                outline: none;
+                background: rgba(17,25, 40, 0.6);
+                color: white;
+                border-radius: 5px;
+            }
+
+            label{
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                cursor: pointer;
+                text-decoration: underline;
+
+                img{
+                    width: 50px;
+                    height: 50px;
+                    border-radius: 10px;
+                    object-fit: cover;
+                    opacity: 0.6;
+                }
+            }
+
+            button{
+                width: 100%;
+                padding: 20px;
+                border: none;
+                background-color: #1f8ef1;
+                color: white;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+        }
+    }
+    .separator{
+        height: 80%;
+        width: 2px;
+        background-color: #dddddd35;
+    }
+}
+
+.welcome-img{
+    height: 150px;
+}
+.boyLaptop{
+    height: 190px;
+}
