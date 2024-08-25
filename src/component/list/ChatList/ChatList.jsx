@@ -13,7 +13,7 @@ function ChatList() {
   const [addMode,setAddMode]=useState(false);
   const [chats,setChats] =useState([])
   const [input,setInput] =useState("")
-  
+
   const {chatId, changeChat}= useChatStore();
   const {currentUser} = useUserStore();
  
@@ -86,11 +86,14 @@ const filteredChats =chats.filter((c)=>
             <input type="text" placeholder='Search'
             onChange={(e)=>setInput(e.target.value)}
             />
+            
            
           </div>
           <img src={addMode ?"./minus.png":"./plus.png"} 
           onClick={()=>setAddMode(prev=>!prev)}
           className='add'/>
+
+
  
 
         </div>
