@@ -2,30 +2,36 @@ import React, { useState } from 'react'
 import "./login.css"
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword ,signInWithEmailAndPassword} from 'firebase/auth';
 import { auth ,db} from '../../lib/firebase';
 import { setDoc ,doc} from 'firebase/firestore';
+import upload from '../../lib/uploads';
+
 
 function Login() {
 
     const [avatar,setAvatar]=useState({
         file:null,
         url:""
-    })
+    });
+    
+const [loading,setLoading]=useState(false);
+
 
     const handelAvatar =e=>{
         if(e.target.files[0]){
             setAvatar({
                 file:e.target.files[0],
                 url:URL.createObjectURL(e.target.files[0])
-            })
+            });
         }
-    }
+    };
 
-
+// **********************************************
  const handelRegister =async (e)=>{
     e.preventDefault();
+    setLoading(true);
+
     const formData =new FormData(e.target)
     const {username,email,password} = Object.fromEntries(formData);
     
@@ -33,9 +39,12 @@ function Login() {
 
         const res =await createUserWithEmailAndPassword(auth,email,password)
 
+        const imgURL=await upload(avatar.file)
+
         await setDoc(doc(db,"users",res.user.uid),{
             username,
             email,
+            avatar:imgURL,
             id:res.user.uid,
             blocked:[],
         });
@@ -45,32 +54,62 @@ function Login() {
         toast.success(`Your account has been created, ${username}! You can now log in.`)
     }catch(err){
         console.log(err);
-        
         toast.error(err.message)
+    }finally{
+        setLoading(false);
     }
  }
- const handelLogin =e=>{
+ // **********************************************
+
+ const handelLogin = async (e)=>{
     e.preventDefault();
+    setLoading(true);
+
+    const formData =new FormData(e.target)
+    const {email,password} = Object.fromEntries(formData);
+
+    try {
+        
+        await signInWithEmailAndPassword(auth,email,password);
+    } catch (err) {
+        console.log(err);
+        toast.error(err.message);
+        
+    }
+    finally{
+        setLoading(false);
+    }
  }
+
+
+
+
   return (
     <>
+   
     <div className="login">
     
         <div className="item">
+
+           
            
             <h2>Welcome back</h2>
             <img src="./welcome.png" alt="" className='welcome-img' />
-            <form onClick={handelLogin} >
+            <form onSubmit={handelLogin} >
+               
                 <input type="text" placeholder='Email' name='email' />
                 <input type="password" placeholder='Password' name='password' />
-                <button>Sign In</button>
+
+                <button disabled={loading}> {loading ? "Loading" : "Sign In"} </button>
+                
+
             </form>
         </div>
         <div className="separator">
            
         </div>
         <div className="item">
-            <h2>Create an Account</h2>
+            <h2>Create an Account </h2>
             <img src="boyLaptop.PNG" alt=""  className='boyLaptop'/>
             <form onSubmit={handelRegister} >
                 <label htmlFor="file">
@@ -81,7 +120,10 @@ function Login() {
                  <input type="text" placeholder='UserName' name='username' />
                 <input type="text" placeholder='Email' name='email' />
                 <input type="password" placeholder='Password' name='password' />
-                <button>Sign Up</button>
+             
+                <button disabled={loading}> {loading ? "Loading" : "Sign Up"} </button>
+                
+               
             </form>
         </div>
     </div>

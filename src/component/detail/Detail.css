@@ -36,6 +36,14 @@
             margin-top: 100px;
             width: 200px;
             height: 60px;
+            box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+            100%, 0.075),
+            /* shadow ring 👇 */
+            0 0 0 1px hsla(0, 0%, 0%, 0.05),
+            /* multiple soft shadows 👇 */
+            0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+            0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+            0 3.5px 6px hsla(0, 0%, 0%, 0.09);
             &:hover{
                 background-color: rgb(236, 52, 89);;
             }
@@ -70,10 +78,30 @@
             cursor: pointer;
             width: 300px;
             height: 40px;
+            box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+            100%, 0.075),
+            /* shadow ring 👇 */
+            0 0 0 1px hsla(0, 0%, 0%, 0.05),
+            /* multiple soft shadows 👇 */
+            0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+            0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+            0 3.5px 6px hsla(0, 0%, 0%, 0.09);
             &:hover{
                 background-color: rgb(54, 137, 225);
             }
         }
 
     }
+}
+.detail-img{
+    box-shadow: inset 0 0 0.5px 1px hsla(0, 0%,  
+    100%, 0.075),
+    /* shadow ring 👇 */
+    0 0 0 1px hsla(0, 0%, 0%, 0.05),
+    /* multiple soft shadows 👇 */
+    0 0.3px 0.4px hsla(0, 0%, 0%, 0.02),
+    0 0.9px 1.5px hsla(0, 0%, 0%, 0.045),
+    0 3.5px 6px hsla(0, 0%, 0%, 0.09);
+    
+    padding: 3px;
 }
