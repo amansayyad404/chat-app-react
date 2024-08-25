@@ -39,11 +39,15 @@ function Detail() {
             
             }
           </button>
+
         </div>
 
         <div className="logoutbtn">
-          <button onClick={()=>auth.signOut()}>Logout</button>
-        </div>
+            <button onClick={()=>auth.signOut()}>Logout</button>
+           </div>
+
+
+       
         
         
     </div>
