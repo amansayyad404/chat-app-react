@@ -10,7 +10,12 @@ import AddUser from "./addUser/addUser";
 
 
 function ChatList() {
+  // **************************
+  //addMode and setAddMode is used for add and minus Functionality
   const [addMode,setAddMode]=useState(false);
+  // **************************
+
+
   const [chats,setChats] =useState([])
   const [input,setInput] =useState("")
 
@@ -90,6 +95,8 @@ const filteredChats =chats.filter((c)=>
            
           </div>
           <img src={addMode ?"./minus.png":"./plus.png"} 
+          // when we click on add then setAddMode will be set to its Opposite
+          //  and based on addMode it will chnage icons
           onClick={()=>setAddMode(prev=>!prev)}
           className='add'/>
 

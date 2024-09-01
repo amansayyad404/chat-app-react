@@ -10,23 +10,26 @@ import upload from '../../lib/uploads';
 
 function Chat() {
   const [chat,setChat] =  useState()
-  const [open,setOpen] =  useState(false);
-  const [text,setText] =  useState("");
+
+
+  const [open,setOpen] =  useState(false); //we have used this for emoji setting purpose
+  const [text,setText] =  useState(""); //we have used this for text in chat purpose
+  
   const [img,setImg]   =  useState({
+      file:null,
+      url:"",
+      })
 
-file:null,
-url:"",
 
-})
 const {chatId,user, isCurrentUserBlocked,isReceiverBlocked}=useChatStore();
 const {currentUser}=useUserStore();
 
-// when chat load it will go to bottom 
+// ********* when chat load it will go to bottom **************
 const endRef =useRef(null);
 useEffect(()=>{
   endRef.current?.scrollIntoView({behavior:"smooth"})
 },[]);
-// *************************
+// ------------------------------------------------------------------
 
 useEffect(()=>{
 
@@ -38,10 +41,13 @@ return ()=>{
 }
 },[chatId])
 
+// *********** emoji ***********************
 const handleEmoji =e=>{
-setText((prev) => prev + e.emoji) //after text emoji
+setText((prev) => prev + e.emoji) //when we will click on emoji it will place after text.
 setOpen(false);
 }
+// ------------------------------------------------------------------
+
 
 const handelImg =(e)=>{
   if(e.target.files[0]){
@@ -153,24 +159,31 @@ setText("");
           
           <input type="file" id='file' style={{display:'none'}} onChange={handelImg} />
         </div>
+
         <input type="text" 
         placeholder={(isCurrentUserBlocked || isReceiverBlocked) ? "you cannot send a msg.. ":'type a msg...'} 
         value={text} 
-        onChange={e=>setText(e.target.value)}
+        onChange={e=>setText(e.target.value)} //on change the value which is typed it will display because of setText
         disabled={isCurrentUserBlocked || isReceiverBlocked} />
        
+
+
         <div className="emoji">
           <img src="./emoji.PNG" alt="" className='emoji-icon' 
           onClick={()=>setOpen((prev)=>!prev)}/>
           <div className="picker">
           <EmojiPicker open={open} onEmojiClick={handleEmoji}></EmojiPicker>
           </div>
-          
         </div>
+
+
         <button className='sendButton' 
         onClick={handleSend} disabled={isCurrentUserBlocked || isReceiverBlocked}>
           Send
         </button>
+
+
+
       </div>
     </div>
   )

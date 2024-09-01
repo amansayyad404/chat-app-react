@@ -30,7 +30,7 @@ function App() {
   return (
    
       <div className='container'>
-        {currentUser ? (
+        {currentUser ? (  //if there is user we will call components else,we will call login page
           <>
                { chatId && <Detail></Detail>}
               {chatId && <Chat></Chat>}
