@@ -10,13 +10,15 @@ import AddUser from "./addUser/addUser";
 
 
 function ChatList() {
-  // **************************
+  // ---------------------------
   //addMode and setAddMode is used for add and minus Functionality
   const [addMode,setAddMode]=useState(false);
-  // **************************
+  // ---------------------------
 
 
   const [chats,setChats] =useState([])
+
+  //use to search users in search bar
   const [input,setInput] =useState("")
 
   const {chatId, changeChat}= useChatStore();
@@ -24,11 +26,13 @@ function ChatList() {
  
 
 
-  // whenever we run this page this component automatic fetch the data 
+  // whenever we run this page this component automatic fetch data from userchats data and shows updated chats 
 useEffect(()=>{
 
+              // Setting up a real-time listener for a document in the "userchats" 
   const unSub =onSnapshot(doc(db,"userchats",currentUser.id), async(res)=>{
-    const items =res.data().chats;
+
+    const items =res.data().chats; //we are getting chats from "userchats"
 
     const promises= items.map(async(item)=>{
       const userDocRef =doc(db,"users",item.receiverId);
@@ -50,6 +54,7 @@ useEffect(()=>{
 
 },[currentUser.id])
 
+// -----------------------------------------
 const handleSelect =async (chat)=>{
 
  const userChats =chats.map(item=>{
@@ -67,14 +72,15 @@ const handleSelect =async (chat)=>{
   await updateDoc(userChatsRef,{
     chats:userChats,
   });
-  changeChat(chat.chatId,chat.user)
+  changeChat(chat.chatId,chat.user) //passing element to chatStore
  } catch (error) {
   console.log(err)
  }
 
 
 }
-
+//This filters the chats array to create a new array (filteredChats)
+// that only includes chats where the username of the user matches the search input and shows result in chatList.
 const filteredChats =chats.filter((c)=> 
   c.user.username.toLowerCase().includes(input.toLowerCase())
 );
@@ -105,9 +111,9 @@ const filteredChats =chats.filter((c)=>
 
         </div>
       {/* ***** */}
-     {filteredChats.map((chat)=>(
+     {filteredChats.map((chat)=>( //in chat there is data of that clicked chat 
      <div className="item" key={chat.chatId} 
-     onClick={()=>handleSelect(chat)} 
+     onClick={()=>handleSelect(chat)} //when we click on any chat handleSelect is called
      style={{
       backgroundColor:chat?.isSeen ? "transparent" :"#5183fe"
      }}
@@ -120,8 +126,11 @@ const filteredChats =chats.filter((c)=>
      </div>
      ))}
 
-     {/* //on plus click box apper and on minus click is disapper */}
-     {addMode&&<AddUser/>}
+
+
+     {/* // if addMode Is true, then AddUser will render, 
+     and if it is false, then it will not render */}
+     {addMode && <AddUser/>}
     </div>
     </>
   )

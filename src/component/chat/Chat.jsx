@@ -29,17 +29,24 @@ const endRef =useRef(null);
 useEffect(()=>{
   endRef.current?.scrollIntoView({behavior:"smooth"})
 },[]);
+
+
+
 // ------------------------------------------------------------------
 
 useEffect(()=>{
-
+      // 'onSnapshot' sets up a real-time listener on the document with ID 'chatId' 
   const unSub= onSnapshot(doc(db,"chats",chatId),(res)=>{
-    setChat(res.data())
+    setChat(res.data()) //upadte useState
   })
 return ()=>{
   unSub();
 }
-},[chatId])
+},[chatId]) //useEffect runs again if 'chatId' changes
+
+
+
+
 
 // *********** emoji ***********************
 const handleEmoji =e=>{
@@ -59,7 +66,7 @@ const handelImg =(e)=>{
 };
 
 const handleSend = async ()=>{
-  if(text === "") return;
+  if(text === "") return; //if there is no text(msg) return
 
   let imgUrl = null;
 
@@ -68,13 +75,13 @@ const handleSend = async ()=>{
     if(img.file){
       imgUrl=await upload(img.file);
     }
-
+// Update the "chats" document with a new message
     await updateDoc(doc(db,"chats",chatId),{
         messages:arrayUnion({
-        senderId:currentUser.id,
-        text,
-        createdAt:new Date(),
-        ...(imgUrl && { img : imgUrl }),
+        senderId:currentUser.id, //// ID of the user sending the message
+        text,                    // The message text
+        createdAt:new Date(),    // Timestamp when the message is created
+        ...(imgUrl && { img : imgUrl }),  // If imgUrl exists, include it in the message object
       }),
     });
 

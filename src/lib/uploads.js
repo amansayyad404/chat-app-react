@@ -1,14 +1,14 @@
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 import { storage } from "./firebase";
 
-const upload = async(file)=>{
+const upload = async(file)=>{ //file means the avtar.file which is send from login page to set img 
     const date=new Date();
 
     const storageRef = ref(storage, `images/${date + file.name}`);
 
     const uploadTask = uploadBytesResumable(storageRef, file);
     
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve,reject)=>{ //we will return ,which will recive in imgURL in login page in fun handelRegister
 
     uploadTask.on('state_changed', 
       (snapshot) => {
@@ -21,7 +21,7 @@ const upload = async(file)=>{
       () => {
       
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          resolve(downloadURL);
+          resolve(downloadURL); 
         });
       }
       );

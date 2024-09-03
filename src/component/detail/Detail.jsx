@@ -10,16 +10,20 @@ function Detail() {
   useChatStore();
   const {currentUser}=useUserStore();
 
+
   const handelBlock= async()=>{
-    if(!user) return;
+    if(!user) return; //if we are blocked we cant do any thing we will return 
 
     const userDocRef=doc(db,"users",currentUser.id)
 
     try {
-      await updateDoc(userDocRef,{
+      await updateDoc(userDocRef,{ 
+         //  arrayUnion->  It adds elements to an array field in a Firestore document if they are not already present. If the element is already in the array, it won’t be added again, preventing duplicates.
         blocked:isReceiverBlocked ? arrayRemove(user.id) : arrayUnion(user.id),
+        // if user is blocked we are removing block by arrayRemove(user.id) and if we want to block we are blocking using arrayUnion(user.id),
       });
       changeBlock();
+
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +47,8 @@ function Detail() {
         </div>
 
         <div className="logoutbtn">
-            <button onClick={()=>auth.signOut()}>Logout</button>
+            <button onClick={()=>auth.signOut()}>Logout</button> 
+            {/* when we signOut AuthStateChanged */}
            </div>
 
 
