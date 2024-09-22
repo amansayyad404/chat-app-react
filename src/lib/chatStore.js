@@ -10,8 +10,8 @@ export const useChatStore = create((set) => ({
   user:null,
   isCurrentUserBlocked:false,
   isReceiverBlocked:false,
-  //we are getting data from handelSelect function 
-changeChat:(chatId,user)=>{ //when we click on any chat in chat list we will get chat-id and user-info of that chat
+  //we are getting data from handelSelect function  form chatList
+changeChat:(chatId,user)=>{ //when we click on any chat in chat-list we will get chat-id and user-info of that chat
   
     const currentUser =useUserStore.getState().currentUser //we are getting current-user from our user-store
 
@@ -42,7 +42,7 @@ changeChat:(chatId,user)=>{ //when we click on any chat in chat list we will get
 },
 
 
-changeBlock:()=>{ //if user is blocked then we will unblock and reverse!
+changeBlock:()=>{ //if we click on block button we will block user or user is already block then when we click on that button it remove block
     set((state)=>({...state, isReceiverBlocked: !state.isReceiverBlocked}))
 },
 

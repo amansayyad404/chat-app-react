@@ -1,4 +1,3 @@
-
 import List from './component/list/List'
 import Chat from './component/chat/Chat'
 import Detail from './component/detail/Detail'
@@ -14,9 +13,6 @@ function App() {
   
   const {currentUser,isLoading,fetchUserInfo}=useUserStore() //we are getting state and info of user
   const {chatId}=useChatStore() 
-
-
-
 
   
   useEffect(()=>{                 // detect whether a user is currently logged in or logged out
@@ -53,7 +49,7 @@ function App() {
               <List></List>
        
          {/* in staring we are seeing only chat list because we have not clicked on any chat 
-              when we click then we get chat-id out that chat and based on that details and chats are rendered */}
+              when we click then we get chat-id of that chat and based on that ,details and chats are rendered */}
          
          
           </>
@@ -61,7 +57,7 @@ function App() {
           <Login></Login>
         ) }
         <Notification></Notification> 
-
+        {/* toast msg */}
       </div>
      )
 }

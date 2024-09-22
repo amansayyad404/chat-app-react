@@ -106,11 +106,10 @@ const filteredChats =chats.filter((c)=>
           onClick={()=>setAddMode(prev=>!prev)}
           className='add'/>
 
-
- 
-
         </div>
-      {/* ***** */}
+
+
+      {/* ----------------------------------------------*/}
      {filteredChats.map((chat)=>( //in chat there is data of that clicked chat 
      <div className="item" key={chat.chatId} 
      onClick={()=>handleSelect(chat)} //when we click on any chat handleSelect is called

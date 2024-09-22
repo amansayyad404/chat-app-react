@@ -18,7 +18,8 @@ function Detail() {
 
     try {
       await updateDoc(userDocRef,{ 
-         //  arrayUnion->  It adds elements to an array field in a Firestore document if they are not already present. If the element is already in the array, it won’t be added again, preventing duplicates.
+         //  arrayUnion->  It adds elements to an array field in a Firestore document if they are not already present.
+         // If the element is already in the array, it won’t be added again, preventing duplicates.
         blocked:isReceiverBlocked ? arrayRemove(user.id) : arrayUnion(user.id),
         // if user is blocked we are removing block by arrayRemove(user.id) and if we want to block we are blocking using arrayUnion(user.id),
       });

@@ -4,7 +4,7 @@ import { storage } from "./firebase";
 const upload = async(file)=>{ //file means the avtar.file which is send from login page to set img 
     const date=new Date();
 
-    const storageRef = ref(storage, `images/${date + file.name}`);
+    const storageRef = ref(storage, `images/${date + file.name}`);//we upload img in storage in firebase 
 
     const uploadTask = uploadBytesResumable(storageRef, file);
     

@@ -38,8 +38,8 @@ const {currentUser}=useUserStore()
 // ------------------------------------------------------
 
   const handelAdd =async()=>{ //when handelAdd is called we are storing data of current user and user which we chat with
-    // Get references to the 'chats' and 'userchats' collections in Firestore.
-    const chatRef =collection(db,"chats")
+    
+    const chatRef =collection(db,"chats")// Get references to the 'chats' and 'userchats' collections in Firestore.
     const userChatsRef =collection(db,"userchats")
 
     try {
@@ -84,7 +84,7 @@ const {currentUser}=useUserStore()
         <button>Search</button>
       </form>
 
-      {/* if user is present then show this div ,*/}
+      {/* if user is present then show this div , user is useState*/}
       {user && <div className="user">  
 
         <div className="detail">
